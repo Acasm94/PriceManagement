@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,7 +28,11 @@ public class StavkaCenovnikaController {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	// @GetMapping("/{cenovnikId/{tipAtributaId}}")
+	@GetMapping("/{cenovnikId}/{predefinisanaVrednostId}")
+	@ResponseBody
+	public StavkaCenovnika getStavkaCenovnikaZaCenovnikAndPredefinisanuVrednost(@PathVariable("cenovnikId")Long cenovnikId, @PathVariable("predefinisanaVrednostId")Long predefinisanaVrednostId) {
+		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/stavkeCenovnika/" + cenovnikId + "/" + predefinisanaVrednostId, StavkaCenovnika.class);
+	}
 	
 	@PostMapping("/{cenovnikId}")
 	@ResponseBody
