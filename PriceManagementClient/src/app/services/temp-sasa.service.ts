@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { SasaTemp } from '../shared/tempSasa';
@@ -15,7 +15,10 @@ export class TempSasaService {
   constructor(private http: Http) { }
 
   getString(broj: number): Promise<SasaTemp>{
-    return this.http.get('/api/tipoviAtributa/zaKontekst/'+broj)
+    let myHeaders = new Headers();
+    myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:8080');
+    let options = new RequestOptions({headers: myHeaders});
+    return this.http.get('/api/cenovnik/zaOsiguravajucuKucu/'+1, options)
       .toPromise()
       .then(response => response.json() as SasaTemp)
       .catch(this.handleError);

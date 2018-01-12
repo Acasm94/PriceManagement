@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.sep.pricemanagement.config.DatabaseUri;
-import com.sep.pricemanagement.model.SasaTemp;
 import com.sep.pricemanagement.model.TipAtributa;
 
 @CrossOrigin
@@ -54,16 +53,4 @@ public class TipAtributaController {
 		List<TipAtributa> tipAtributa = restTemplate.getForObject(databaseUri.getDatabaseUri()+"/tipoviAtributa/zaKontekst/"+kontekstAtributaId, List.class);
 		return new ResponseEntity<List<TipAtributa>>(tipAtributa,HttpStatus.OK);
 	}*/
-	
-	
-	//TODO: Obrisati!
-	@GetMapping("/zaKontekst/{broj}")
-	@ResponseBody
-	public ResponseEntity<SasaTemp> getString(@PathVariable("broj") Long broj){
-		System.out.println(broj);
-		SasaTemp sasaTemp = new SasaTemp();
-		sasaTemp.setBroj(broj);
-		sasaTemp.setText("a " + broj);
-		return new ResponseEntity<SasaTemp>(sasaTemp, HttpStatus.OK);
-	}
 }
