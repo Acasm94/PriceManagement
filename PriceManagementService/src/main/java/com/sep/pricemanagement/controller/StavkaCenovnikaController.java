@@ -1,5 +1,7 @@
 package com.sep.pricemanagement.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,13 @@ public class StavkaCenovnikaController {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/zaCenovnik/{cenovnikId}")
+	@ResponseBody
+	public List<StavkaCenovnika> getStavkaCenovnikaZaCenovnik(@PathVariable("cenovnikId")Long cenovnikId){
+		return restTemplate.getForObject(databaseUri.getDatabaseUri() + "/stavkeCenovnika/zaCenovnik/" + cenovnikId, List.class);
+	}
 	
 	@GetMapping("/{cenovnikId}/{predefinisanaVrednostId}")
 	@ResponseBody

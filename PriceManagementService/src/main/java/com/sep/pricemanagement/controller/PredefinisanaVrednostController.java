@@ -3,6 +3,7 @@ package com.sep.pricemanagement.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +20,21 @@ import com.sep.pricemanagement.model.PredefinisanaVrednost;
 @RequestMapping("/api/predefinisaneVrednosti")
 public class PredefinisanaVrednostController {
 
+	@Value("${spring.data.company}")
+	private String osiguravajucaKucaId;
+	
 	@Autowired
 	private DatabaseUri databaseUri;
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping
+	@ResponseBody
+	public List<PredefinisanaVrednost> getPredefinisaneVrednosti() {
+		return restTemplate.getForObject(databaseUri.getDatabaseUri() + "/predefinisaneVrednosti/zaOsiguravajucuKucu/" + osiguravajucaKucaId, List.class);
+	}
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaTipAtributa/{tipAtributaId}")

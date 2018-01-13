@@ -1,6 +1,7 @@
 package com.sep.pricemanagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +18,20 @@ import com.sep.pricemanagement.model.Cenovnik;
 @RequestMapping("/api/cenovnik")
 public class CenovnikController {
 
+	@Value("${spring.data.company}")
+	private String osiguravajucaKucaId;
+	
 	@Autowired
 	private DatabaseUri databaseUri;
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@GetMapping
+	@ResponseBody
+	public Cenovnik getCenovniciZaOsiguravajucuKucu() {
+		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/cenovnici/zaOsiguravajucuKucu/"+osiguravajucaKucaId, Cenovnik.class);
+	}
 	
 	@GetMapping("/zaOsiguravajucuKucu/{id}")
 	@ResponseBody
