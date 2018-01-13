@@ -16,7 +16,7 @@ export class TempSasaService {
 
   getString(broj: number): Promise<SasaTemp>{
     let myHeaders = new Headers();
-    myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:8080');
+    myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:8080/*');
     let options = new RequestOptions({headers: myHeaders});
     return this.http.get('/api/cenovnik/zaOsiguravajucuKucu/'+1, options)
       .toPromise()
