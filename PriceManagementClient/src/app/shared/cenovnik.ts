@@ -5,6 +5,7 @@ export class Cenovnik{
     id: number;
     datumOd: string;
     datumDo: string;
+    aktuelan: boolean;
     osiguravajucaKuca: OsiguravajucaKuca;
-    stavkaCenovnika: StavkaCenovnika;
+    stavkeCenovnika: StavkaCenovnika[];
 };

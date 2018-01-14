@@ -1,0 +1,75 @@
+<div class = "container">
+  <p class = "h2">Cenovnik za period od {{aktuelniCenovnik?.datumOd}} do {{aktuelniCenovnik?.datumDo}}</p>
+  <table class = "table">
+    <tr><th>#</th><th>Naziv</th><th>Za polje</th><th>Cena</th></tr>
+    <tr *ngFor = "let stavkaCenovnika of aktuelniCenovnik?.stavkeCenovnika; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{stavkaCenovnika.predefinisanaVrednost.konkretnaVrednost}}</td>
+      <td>{{stavkaCenovnika.predefinisanaVrednost.tipAtributa.naziv}}</td>
+      <td>{{stavkaCenovnika.suma}}</td>
+    </tr>
+  </table>
+  <button type="button" class="btn btn-primary" (click)="openCreateCenovnik(modal)">Novi cenovnik</button>
+  <button type="button" class="btn btn-primary" (click)="openUpdateCenovnik(modal)">Izmeni cenovnik</button>
+  <button type="button" class="btn btn-success" (click)="aktuelan()">Postavi za aktuelan</button>
+  <button type="button" class="btn btn-primary" (click)="prikaziSveCenovnike(cenovnici)">Lista cenovnika</button>
+  <button type="button" class="btn btn-primary" (click)="prikaziCenovnikePoDatumu(cenovnici)">Cenovnici za danasnji datum</button>
+  <br/>
+  <button type="button" class="btn btn-primary">Napisi nova pravila</button>
+  <button type="button" class="btn btn-primary">Izmeni postojeca pravila</button>  
+</div>
+
+<!-- Modal -->
+<ng-template #modal>
+    <div class="modal-header">
+        <h3 class="modal-title pull-left">Cenovnik</h3>
+        <button type="button" class="close pull-right" 
+                aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+      <form name = "cenovnikForm">
+        <div>
+            <div class="form-group">
+                <label>Datum  od</label>
+                <input name = "datumOd" class = "form-control" type = "date" [(ngModel)] = "noviCenovnik.datumOd">
+                <label>Datum do</label>
+                <input name = "datumDo" class = "form-control" type = "date" [(ngModel)] = "noviCenovnik.datumDo">
+            </div>
+        </div>         
+        <div>
+          <div class="form-group" *ngFor = "let predefinisanaVrednost of predefinisaneVrednosti">
+            <label>{{predefinisanaVrednost?.konkretnaVrednost}} </label> za atribut {{predefinisanaVrednost.tipAtributa.naziv}}
+            <input  class="form-control" type = "number" (input) = "enteredValue($event, predefinisanaVrednost)" [value] = "stavkeCenovnika.get(predefinisanaVrednost.id).suma">
+          </div>
+        </div>
+      <button type = "button" class = "btn btn-default" (click) = "modalRef.hide()">Close</button>
+      <button *ngIf = "action ==='ADD'" class = "btn btn-success" (click) = "createCenovnik()">Kreiraj</button>
+      <button *ngIf = "action ==='UPDATE'" class = "btn btn-success" (click) = "updateCenovnik()">Izmeni</button>
+    </form>      
+  </div>
+</ng-template>
+
+<ng-template #cenovnici>
+    <div class="modal-header">
+        <h3 class="modal-title pull-left">Cenovnici</h3>
+        <button type="button" class="close pull-right" 
+                aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+      <table class = "table">
+        <tr><th>#</th><th>Datum od</th><th>Datum do</th><th>Aktuelan</th><th></th></tr>
+        <tr *ngFor = "let cenovnik of listaCenovnika; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{cenovnik.datumOd | date:'longDate'}}</td>
+          <td>{{cenovnik.datumDo | date:'longDate'}}</td>
+          <td>{{cenovnik.aktuelan}}</td>
+          <button class = "btn btn-success" (click)="otvoriCenovnik(cenovnik)">Prikazi</button>
+        </tr>
+      </table>
+      <button type = "button" class = "btn btn-default" (click) = "modalRef.hide()">Close</button>     
+    </div>
+</ng-template>

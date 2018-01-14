@@ -6,4 +6,9 @@ export class StavkaCenovnika{
     suma: number;
     cenovnik: Cenovnik;
     predefinisanaVrednost: PredefinisanaVrednost;
+
+    constructor(predefinisanaVrednost: PredefinisanaVrednost){
+        this.predefinisanaVrednost = predefinisanaVrednost;
+    }
+
 };
