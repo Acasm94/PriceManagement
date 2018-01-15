@@ -11,6 +11,7 @@ public class Cenovnik implements Serializable{
 	private Long id;
 	private Date datumOd;
 	private Date datumDo;
+	private Boolean aktuelan;
 	private OsiguravajucaKuca osiguravajucaKuca;
 	private List<StavkaCenovnika> stavkeCenovnika;
 	
@@ -41,6 +42,14 @@ public class Cenovnik implements Serializable{
 		this.datumDo = datumDo;
 	}
 	
+	public Boolean getAktuelan() {
+		return aktuelan;
+	}
+
+	public void setAktuelan(Boolean aktuelan) {
+		this.aktuelan = aktuelan;
+	}
+
 	public OsiguravajucaKuca getOsiguravajucaKuca() {
 		return osiguravajucaKuca;
 	}

@@ -30,8 +30,8 @@ export class CenovnikService {
       .catch(this.handleError);
   }
 
-  setAktuelanCenovnikZaOsiguravajucuKucu(cenovnikId: number){
-    return this.http.get("/api/cenovnici/aktuelan/" + cenovnikId)
+  setAktuelanCenovnikZaOsiguravajucuKucu(cenovnik: Cenovnik){
+    return this.http.post("/api/cenovnici/aktuelan", cenovnik)
       .toPromise()
       .then(response => response.json() as Cenovnik)
       .catch(this.handleError);

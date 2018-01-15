@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,10 +51,10 @@ public class CenovnikController {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/cenovnici/aktuelan/zaOsiguravajucuKucu/" + osiguravajucaKucaId, Cenovnik.class);
 	}
 	
-	@GetMapping("/aktuelan/{cenovnikId}")
+	@PostMapping("/aktuelan")
 	@ResponseBody
-	public Cenovnik setAktuelanCenovnikZaOsiguravajucuKucu(@PathVariable("cenovnikId")Long cenovnikId) {
-		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/cenovnici/aktuelan/" + osiguravajucaKucaId, Cenovnik.class);
+	public Cenovnik setAktuelanCenovnikZaOsiguravajucuKucu(@RequestBody Cenovnik cenovnik) {
+		return restTemplate.postForObject(databaseUri.getDatabaseUri()+"/cenovnici/aktuelan", cenovnik, Cenovnik.class);
 	}
 	
 	@PostMapping

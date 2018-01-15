@@ -24,6 +24,8 @@ export class CenovnikComponent implements OnInit {
 
   listaCenovnika: Cenovnik[];
 
+  pravila: string;
+
   constructor(private cenovnikService: CenovnikService, private modalService: BsModalService) { 
     this.noviCenovnik = new Cenovnik();
     this.stavkeCenovnika = new Map();
@@ -76,13 +78,23 @@ export class CenovnikComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  public novaPravila(template: TemplateRef<any>) {
+    this.pravila = "";
+    this.modalRef = this.modalService.show(template);
+  }
+
+  public izmeniPostojecaPravila(template: TemplateRef<any>) {
+    this.pravila = "PRAVILA SA SERVERA";
+    this.modalRef = this.modalService.show(template);
+  }
+
   otvoriCenovnik(cenovnik: Cenovnik){
     this.getStavkeCenovnikaZaCenovnik(cenovnik);
     this.modalRef.hide();
   }
 
   aktuelan(){
-    this.cenovnikService.setAktuelanCenovnikZaOsiguravajucuKucu(this.aktuelniCenovnik.id).then((response)=>{
+    this.cenovnikService.setAktuelanCenovnikZaOsiguravajucuKucu(this.aktuelniCenovnik).then((response)=>{
       alert('POSTAVLJENO');
     })
   }
@@ -127,6 +139,10 @@ export class CenovnikComponent implements OnInit {
       this.getStavkeCenovnikaZaCenovnik(cenovnik)
       this.modalRef.hide();
     });
+  }
+
+  sacuvajPravila(){
+    alert('Sacuvaj pravila' + this.pravila);
   }
 
 }
