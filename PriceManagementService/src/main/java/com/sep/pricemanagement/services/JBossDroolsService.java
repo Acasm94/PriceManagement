@@ -43,7 +43,7 @@ public class JBossDroolsService {
 		this.kieContainer = kieContainer;
 	}
 	
-	public void calculatePrice(List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) 
+	public double calculatePrice(List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) 
 	{
 		KieSession kieSession = kieContainer.newKieSession();
 		
@@ -87,12 +87,16 @@ public class JBossDroolsService {
 			//ukupnaCena *= vrednostiAtributaOsiguranja != null ? 3 : 1;
 		}
 		
+		System.out.println(ukupnaCena);	
+		
 		KalkulatorCene kalkulatorCene = new KalkulatorCene(vrednostiAtributaOsiguranja, ukupnaCena);
 				
 		kieSession.insert(kalkulatorCene);
 		kieSession.fireAllRules();
 		kieSession.dispose();
 		
-		System.out.println(kalkulatorCene.getCena());	
+		System.out.println(kalkulatorCene.getCena());
+		
+		return kalkulatorCene.getCena();
 	}
 }

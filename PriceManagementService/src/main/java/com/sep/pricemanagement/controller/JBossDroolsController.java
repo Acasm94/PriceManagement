@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,19 +30,13 @@ public class JBossDroolsController {
 		
 		jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);
 		
-		return null;		
-	}*/
-	
-	@RequestMapping(value = "/izracunajCenu", method = RequestMethod.GET, produces = "application/json")
-	public Double createOsiguranje() {
-		
 		List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja = new ArrayList<VrednostAtributaOsiguranja>();
 		VrednostAtributaOsiguranja vra1 = new VrednostAtributaOsiguranja();
-		vra1.setVrednost("Evropa");
+		vra1.setVrednost("Preko 60 godina");
 		VrednostAtributaOsiguranja vra2 = new VrednostAtributaOsiguranja();
-		vra2.setVrednost("Od 18 do 60 godina");
+		vra2.setVrednost("Australija");
 		VrednostAtributaOsiguranja vra4 = new VrednostAtributaOsiguranja();
-		vra4.setVrednost("Ne bavi se sportom");
+		vra4.setVrednost("30.000 EUR");
 		VrednostAtributaOsiguranja vra3 = new VrednostAtributaOsiguranja();
 		VrednostAtributaOsiguranja vao = new VrednostAtributaOsiguranja();
 		vao.setVrednost("3");
@@ -54,11 +49,15 @@ public class JBossDroolsController {
 		vrednostiAtributaOsiguranja.add(vra1);
 		vrednostiAtributaOsiguranja.add(vra2);
 		vrednostiAtributaOsiguranja.add(vra3);
-		
-		
-		jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);
+		vrednostiAtributaOsiguranja.add(vra4);
 		
 		return null;		
+	}*/
+	
+	@RequestMapping(value = "/izracunajCenu", method = RequestMethod.GET, produces = "application/json")
+	public Double createOsiguranje(@RequestBody List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) {
+		
+		return jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);	
 	}
 
 
