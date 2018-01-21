@@ -11,7 +11,13 @@ public class TipAtributa implements Serializable{
 	private String naziv;
 	private DomenAtributa domen;
 	private Boolean obavezan;
+	private Boolean uticeNaCenu;
+	private Boolean slobodnoPolje;
+	private String regex;
+	private Integer minimalnaDuzina;
+	private Integer maksimalnaDuzina;
 	private KontekstAtributa kontekst;
+	private List<KontrolniAtribut> kontrolniAtributi;
 	private List<PredefinisanaVrednost> predefinisaneVrednosti;
 	private List<VrednostAtributaOsiguranja> vrednostiAtributa;
 	private List<TipOsiguranja> tipoviOsiguranja;
@@ -91,5 +97,57 @@ public class TipAtributa implements Serializable{
 	public void setTipoviOsiguranja(List<TipOsiguranja> tipoviOsiguranja) {
 		this.tipoviOsiguranja = tipoviOsiguranja;
 	}
+	
+	public Boolean getUticeNaCenu() {
+		return uticeNaCenu;
+	}
+
+	public void setUticeNaCenu(Boolean uticeNaCenu) {
+		this.uticeNaCenu = uticeNaCenu;
+	}
+
+	public Boolean getSlobodnoPolje() {
+		return slobodnoPolje;
+	}
+
+	public void setSlobodnoPolje(Boolean slobodnoPolje) {
+		this.slobodnoPolje = slobodnoPolje;
+	}
+
+	public String getRegex() {
+		return regex;
+	}
+
+	public void setRegex(String regex) {
+		this.regex = regex;
+	}
+
+	public Integer getMinimalnaDuzina() {
+		return minimalnaDuzina;
+	}
+
+	public void setMinimalnaDuzina(Integer minimalnaDuzina) {
+		this.minimalnaDuzina = minimalnaDuzina;
+	}
+
+	public Integer getMaksimalnaDuzina() {
+		return maksimalnaDuzina;
+	}
+
+	public void setMaksimalnaDuzina(Integer maksimalnaDuzina) {
+		this.maksimalnaDuzina = maksimalnaDuzina;
+	}
+
+	public List<KontrolniAtribut> getKontrolniAtributi() {
+		if(kontrolniAtributi == null)
+			kontrolniAtributi = new ArrayList<>();
+		return kontrolniAtributi;
+	}
+
+	public void setKontrolniAtributi(List<KontrolniAtribut> kontrolniAtributi) {
+		if(kontrolniAtributi != null)
+			this.kontrolniAtributi = kontrolniAtributi;
+	}
+
 	
 }
