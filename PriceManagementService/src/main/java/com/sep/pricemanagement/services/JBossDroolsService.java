@@ -1,11 +1,13 @@
 package com.sep.pricemanagement.services;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.cli.MavenCli;
@@ -151,6 +153,23 @@ public class JBossDroolsService {
 			}
 		}	
 		return sadrzajFajla;
+	}
+	
+	public List<String> getListuFajlova()
+	{
+		List<String> listaFajlova = new ArrayList<String>();
+		
+		File folder = new File(priceManagementJBDDirectoryPath + "\\src\\main\\resources\\drools\\rules\\");
+		File[] listOfFiles = folder.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+		    if (listOfFiles[i].isFile()) {
+		        System.out.println("File " + listOfFiles[i].getName());
+		        listaFajlova.add(listOfFiles[i].getName());
+		    }
+		}
+		 
+		 return listaFajlova;
 	}
 	
 	public void sacuvajPravilo(String sadrzajPravila, String nazivFajla) 

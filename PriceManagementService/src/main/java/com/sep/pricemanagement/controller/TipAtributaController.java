@@ -34,7 +34,7 @@ public class TipAtributaController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaTipOsiguranja/{tipOsiguranjaId}")
 	@ResponseBody
-	@Permission(permissionName = "readTipoveAtributaZaTipOsiguranja")
+	//@Permission(permissionName = "readTipoveAtributaZaTipOsiguranja")
 	public ResponseEntity<List<TipAtributa>> getTipoviAtributaZaTipOsiguranja(@PathVariable("tipOsiguranjaId") Long tipOsiguranjaId){
 		List<TipAtributa> tipAtributa = restTemplate.getForObject(databaseUri.getDatabaseUri()+"/tipoviAtributa/zaTipOsiguranja/"+tipOsiguranjaId, List.class);
 		return new ResponseEntity<List<TipAtributa>>(tipAtributa,HttpStatus.OK);
@@ -43,7 +43,7 @@ public class TipAtributaController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/uticuNaCenu/{tipOsiguranjaId}")
 	@ResponseBody
-	@Permission(permissionName = "readTipoveAtributaZaTipOsigUticuNaCenu")
+	//@Permission(permissionName = "readTipoveAtributaZaTipOsigUticuNaCenu")
 	public ResponseEntity<List<TipAtributa>> getTipoviAtributaZaTipOsiguranjaAndUticeNaCenu(@PathVariable("tipOsiguranjaId")Long tipOsiguranjaId) {
 		List<TipAtributa> tipAtributa = restTemplate.getForObject(databaseUri.getDatabaseUri()+"/tipoviAtributa/uticuNaCenu/"+tipOsiguranjaId, List.class);
 		return new ResponseEntity<List<TipAtributa>>(tipAtributa,HttpStatus.OK);

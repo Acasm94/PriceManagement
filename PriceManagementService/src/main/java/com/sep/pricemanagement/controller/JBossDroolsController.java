@@ -74,11 +74,12 @@ public class JBossDroolsController {
 	@ResponseBody
 	public List<String> getFajlove(/*@RequestBody String pravilnik*/) {
 		
-		List<String> lista = new ArrayList<String>();
-		lista.add("medjunarodnoPutnoOsiguranje");
-		lista.add("osiguranjeNepokretnosti");
+		return jBossDroolsService.getListuFajlova();
+		//List<String> lista = new ArrayList<String>();
+		//lista.add("medjunarodnoPutnoOsiguranje");
+		//lista.add("osiguranjeNepokretnosti");
 		
-		return lista;
+		//return lista;
 	}
 
 	@GetMapping("/getSadrzajPravila/{nazivFajla}")

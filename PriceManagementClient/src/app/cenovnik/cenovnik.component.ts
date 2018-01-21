@@ -82,13 +82,18 @@ export class CenovnikComponent implements OnInit {
   }
 
   public novaPravila(template: TemplateRef<any>) {
-    this.pravila = "";
+    this.pravila = "package drools.rules\n\n" +
+    "import org.kie.api.runtime.KieRuntime;\n" +
+    "import com.sep.pricemanagement.model.*;";
+    this.drlFileName = "";
     this.jBossStatus = "CREATE";
     this.modalRef = this.modalService.show(template);
   }
 
   public izmeniPostojecaPravila(template: TemplateRef<any>) {
     this.jBossStatus = "UPDATE";
+    this.cenovnikService.getFajlove()
+      .then(files => {this.files = files;});
     this.getSadrzajPravila(this.files[0]);
     this.drlFileName = this.files[0];
     this.modalRef = this.modalService.show(template);

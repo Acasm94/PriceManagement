@@ -34,21 +34,21 @@ public class StavkaCenovnikaController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaCenovnik/{cenovnikId}")
 	@ResponseBody
-	@Permission(permissionName = "readStavkeZaCenovnik")
+	//@Permission(permissionName = "readStavkeZaCenovnik")
 	public List<StavkaCenovnika> getStavkaCenovnikaZaCenovnik(@PathVariable("cenovnikId")Long cenovnikId){
 		return restTemplate.getForObject(databaseUri.getDatabaseUri() + "/stavkeCenovnika/zaCenovnik/" + cenovnikId, List.class);
 	}
 	
 	@GetMapping("/{cenovnikId}/{predefinisanaVrednostId}")
 	@ResponseBody
-	@Permission(permissionName = "readStavkeZaCenovnikIPredVrednost")
+	//@Permission(permissionName = "readStavkeZaCenovnikIPredVrednost")
 	public StavkaCenovnika getStavkaCenovnikaZaCenovnikAndPredefinisanuVrednost(@PathVariable("cenovnikId")Long cenovnikId, @PathVariable("predefinisanaVrednostId")Long predefinisanaVrednostId) {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/stavkeCenovnika/" + cenovnikId + "/" + predefinisanaVrednostId, StavkaCenovnika.class);
 	}
 	
 	@PostMapping("/{cenovnikId}")
 	@ResponseBody
-	@Permission(permissionName = "addStavkuCenovnika")
+	//@Permission(permissionName = "addStavkuCenovnika")
 	public ResponseEntity<StavkaCenovnika> novaStavkaCenovnika(@RequestBody StavkaCenovnika stavkaCenovnika, @PathVariable("cenovnikId") Long id){
 		StavkaCenovnika response = restTemplate.postForObject(databaseUri.getDatabaseUri()+"/stavkeCenovnika/" + id, stavkaCenovnika, StavkaCenovnika.class);
 		return new ResponseEntity<StavkaCenovnika>(response, HttpStatus.OK);
@@ -56,7 +56,7 @@ public class StavkaCenovnikaController {
 	
 	@PutMapping("/{cenovnikId}")
 	@ResponseBody
-	@Permission(permissionName = "updateStavkuCenovnika")
+	//@Permission(permissionName = "updateStavkuCenovnika")
 	public Boolean izmeniStavkaCenovnika(@RequestBody StavkaCenovnika stavkaCenovnika, @PathVariable("cenovnikId")Long id) {
 		restTemplate.put(databaseUri.getDatabaseUri() + "/stavkeCenovnika/" + id, stavkaCenovnika);
 		return true;
