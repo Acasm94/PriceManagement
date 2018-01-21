@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sep.pricemanagement.config.DatabaseUri;
 import com.sep.pricemanagement.model.PredefinisanaVrednost;
+import com.sep.pricemanagement.model.user.Permission;
 
 @RestController
 @RequestMapping("/api/predefinisaneVrednosti")
@@ -32,6 +33,7 @@ public class PredefinisanaVrednostController {
 	@SuppressWarnings("unchecked")
 	@GetMapping
 	@ResponseBody
+	@Permission(permissionName = "readPredefinisaneVrednosti")
 	public List<PredefinisanaVrednost> getPredefinisaneVrednosti() {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri() + "/predefinisaneVrednosti/zaOsiguravajucuKucu/" + osiguravajucaKucaId, List.class);
 	}
@@ -39,6 +41,7 @@ public class PredefinisanaVrednostController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaTipAtributa/{tipAtributaId}")
 	@ResponseBody
+	@Permission(permissionName = "readPredefinisaneVrednostiZaTipAtributa")
 	public ResponseEntity<List<PredefinisanaVrednost>> getPredefinisaneVrednostiZaTipAtributa(@PathVariable("tipAtributaId")Long tipAtributaId) {
 		List<PredefinisanaVrednost> predefinisaneVrednosti = restTemplate.getForObject(databaseUri.getDatabaseUri()+"/predefinisaneVrednosti/zaTipAtributa/"+tipAtributaId, List.class);
 		return new ResponseEntity<List<PredefinisanaVrednost>>(predefinisaneVrednosti, HttpStatus.OK);

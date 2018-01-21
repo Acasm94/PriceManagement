@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sep.pricemanagement.config.DatabaseUri;
 import com.sep.pricemanagement.model.TipOsiguranja;
+import com.sep.pricemanagement.model.user.Permission;
 
 @CrossOrigin
 @RestController
@@ -28,6 +29,7 @@ public class TipOsiguranjaController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaOsiguravajucuKucu/{id}")
 	@ResponseBody
+	@Permission(permissionName = "readTipoveOsiguranjaZaOK")
 	public List<TipOsiguranja> getTipoviOsiguranjaZaOsiguravajucuKucu(@PathVariable("id")Long osiguravajucaKucaId) {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/tipoviOsiguranja/zaOsiguravajucuKucu/"+osiguravajucaKucaId, List.class);
 	}

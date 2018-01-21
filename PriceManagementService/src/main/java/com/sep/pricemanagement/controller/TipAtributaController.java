@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sep.pricemanagement.config.DatabaseUri;
 import com.sep.pricemanagement.model.TipAtributa;
+import com.sep.pricemanagement.model.user.Permission;
 
 @CrossOrigin
 @RestController
@@ -33,6 +34,7 @@ public class TipAtributaController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaTipOsiguranja/{tipOsiguranjaId}")
 	@ResponseBody
+	@Permission(permissionName = "readTipoveAtributaZaTipOsiguranja")
 	public ResponseEntity<List<TipAtributa>> getTipoviAtributaZaTipOsiguranja(@PathVariable("tipOsiguranjaId") Long tipOsiguranjaId){
 		List<TipAtributa> tipAtributa = restTemplate.getForObject(databaseUri.getDatabaseUri()+"/tipoviAtributa/zaTipOsiguranja/"+tipOsiguranjaId, List.class);
 		return new ResponseEntity<List<TipAtributa>>(tipAtributa,HttpStatus.OK);
@@ -41,6 +43,7 @@ public class TipAtributaController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/uticuNaCenu/{tipOsiguranjaId}")
 	@ResponseBody
+	@Permission(permissionName = "readTipoveAtributaZaTipOsigUticuNaCenu")
 	public ResponseEntity<List<TipAtributa>> getTipoviAtributaZaTipOsiguranjaAndUticeNaCenu(@PathVariable("tipOsiguranjaId")Long tipOsiguranjaId) {
 		List<TipAtributa> tipAtributa = restTemplate.getForObject(databaseUri.getDatabaseUri()+"/tipoviAtributa/uticuNaCenu/"+tipOsiguranjaId, List.class);
 		return new ResponseEntity<List<TipAtributa>>(tipAtributa,HttpStatus.OK);
