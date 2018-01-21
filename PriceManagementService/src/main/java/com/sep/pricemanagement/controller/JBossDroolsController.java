@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sep.pricemanagement.model.TipAtributa;
 import com.sep.pricemanagement.model.VrednostAtributaOsiguranja;
 import com.sep.pricemanagement.services.JBossDroolsService;
 
@@ -59,6 +62,37 @@ public class JBossDroolsController {
 		
 		return jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);	
 	}
+	
+	@GetMapping("/kreirajPravilo")
+	@ResponseBody
+	public void setAktuelanCenovnikZaOsiguravajucuKucu(@RequestBody String pravilnik) {
+		
+		jBossDroolsService.kreirajNovoPravilo(pravilnik);	
+	}
+	
+	@GetMapping("/getFajlove")
+	@ResponseBody
+	public List<String> getFajlove(/*@RequestBody String pravilnik*/) {
+		
+		List<String> lista = new ArrayList<String>();
+		lista.add("medjunarodnoPutnoOsiguranje");
+		lista.add("osiguranjeNepokretnosti");
+		
+		return lista;
+	}
 
+	@GetMapping("/getSadrzajPravila/{nazivFajla}")
+	@ResponseBody
+	public String getSadrzajPravila(@PathVariable("nazivFajla") String nazivFajla) {
+		
+		return jBossDroolsService.getSadrzajPravila(nazivFajla);
+	}
+	
+	@PostMapping("/sacuvajPravilo/{imeFajla}")
+	@ResponseBody
+	public void sacuvajPravilo(@PathVariable("imeFajla") String imeFajla, @RequestBody String sadrzajPravilnika) {
+
+		jBossDroolsService.sacuvajPravilo(sadrzajPravilnika, imeFajla);
+	}
 
 }

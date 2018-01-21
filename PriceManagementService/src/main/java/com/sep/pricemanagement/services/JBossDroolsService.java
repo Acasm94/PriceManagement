@@ -1,8 +1,14 @@
 package com.sep.pricemanagement.services;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.apache.maven.cli.MavenCli;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +34,9 @@ public class JBossDroolsService {
 	
 	@Value("${spring.data.company}")
 	private String osiguravajucaKucaId;
+	
+	@Value("${spring.data.PriceManagementJBDDirectoryPath}")
+	private String priceManagementJBDDirectoryPath;
 	
 	double ukupnaCena = 0;
 	List<StavkaCenovnika> stavkeCenovnikaArr = null;
@@ -61,13 +70,10 @@ public class JBossDroolsService {
 				    new TypeReference<List<StavkaCenovnika>>(){}
 				);
 		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -98,5 +104,69 @@ public class JBossDroolsService {
 		System.out.println(kalkulatorCene.getCena());
 		
 		return kalkulatorCene.getCena();
+	}
+	
+	public void kreirajNovoPravilo(String pravilnik)
+	{
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(priceManagementJBDDirectoryPath + "\\src\\main\\resources\\drools\\rules\\novoPravilo.drl", "UTF-8");
+			writer.println(pravilnik);
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		MavenCli cli = new MavenCli();
+		cli.doMain(new String[]{"clean", "install"}, priceManagementJBDDirectoryPath, System.out, System.out);
+	}
+	
+	public String getSadrzajPravila(String nazivFajla)
+	{
+		String sadrzajFajla = "";		
+		BufferedReader br = null;
+
+		try {
+
+			br = new BufferedReader(new FileReader(priceManagementJBDDirectoryPath + "\\src\\main\\resources\\drools\\rules\\" + nazivFajla + ".drl"));
+
+			String sCurrentLine;
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+				sadrzajFajla += sCurrentLine + "\n";
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}	
+		return sadrzajFajla;
+	}
+	
+	public void sacuvajPravilo(String sadrzajPravila, String nazivFajla) 
+	{
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(priceManagementJBDDirectoryPath + "\\src\\main\\resources\\drools\\rules\\" + nazivFajla + ".drl", "UTF-8");
+			writer.println(sadrzajPravila);
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		MavenCli cli = new MavenCli();
+		cli.doMain(new String[]{"clean", "install"}, priceManagementJBDDirectoryPath, System.out, System.out);
 	}
 }

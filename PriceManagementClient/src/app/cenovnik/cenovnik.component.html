@@ -89,6 +89,9 @@
     </div>
     <div class = "modal-body">
       <form name = "pravilaForm">
+          <select class = "form-control" *ngIf="jBossStatus === 'UPDATE'" (change)="chooseFile($event)"><option *ngFor="let file of files" [value] = "file">{{file}}</option></select> 
+          <input class = "form-control" name="fileName" *ngIf="jBossStatus === 'CREATE'" type="text" [(ngModel)] = "drlFileName" placeholder="Unesite naziv DRL fajla"/>
+          <br/>
           <textarea class = "form-control" rows = "15" cols = "60" name = "pravila" form = "pravilaForm" [(ngModel)] = "pravila"></textarea>
       </form>
     </div>

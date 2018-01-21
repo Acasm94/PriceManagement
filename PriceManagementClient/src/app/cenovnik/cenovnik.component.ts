@@ -19,12 +19,13 @@ export class CenovnikComponent implements OnInit {
   aktuelniCenovnik: Cenovnik;
   predefinisaneVrednosti: PredefinisanaVrednost[];
   noviCenovnik: Cenovnik;
-
   stavkeCenovnika: Map<number, StavkaCenovnika>;
-
   listaCenovnika: Cenovnik[];
-
   pravila: string;
+  files: string[];
+  jBossStatus: string;
+  drlFileName: string;
+
 
   constructor(private cenovnikService: CenovnikService, private modalService: BsModalService) { 
     this.noviCenovnik = new Cenovnik();
@@ -36,6 +37,8 @@ export class CenovnikComponent implements OnInit {
       .then(cenovnik => this.getStavkeCenovnikaZaCenovnik(cenovnik));
     this.cenovnikService.getPredefinisaneVrednosti()
       .then(predefinisaneVrednosti => this.predefinisaneVrednosti = predefinisaneVrednosti);
+    this.cenovnikService.getFajlove()
+      .then(files => {this.files = files;});
   }
 
   getStavkeCenovnikaZaCenovnik(cenovnik: Cenovnik){
@@ -80,11 +83,14 @@ export class CenovnikComponent implements OnInit {
 
   public novaPravila(template: TemplateRef<any>) {
     this.pravila = "";
+    this.jBossStatus = "CREATE";
     this.modalRef = this.modalService.show(template);
   }
 
   public izmeniPostojecaPravila(template: TemplateRef<any>) {
-    this.pravila = "PRAVILA SA SERVERA";
+    this.jBossStatus = "UPDATE";
+    this.getSadrzajPravila(this.files[0]);
+    this.drlFileName = this.files[0];
     this.modalRef = this.modalService.show(template);
   }
 
@@ -142,7 +148,20 @@ export class CenovnikComponent implements OnInit {
   }
 
   sacuvajPravila(){
-    alert('Sacuvaj pravila' + this.pravila);
+    this.cenovnikService.sacuvajIzmenjenoPravilo(this.pravila, this.drlFileName);
+    console.log(this.pravila);
+    console.log(this.drlFileName);
+    this.modalRef.hide();
+  }
+
+  getSadrzajPravila(drlFileName){
+    this.cenovnikService.getSadrzajPravila(drlFileName)
+      .then(pravila => {this.pravila = pravila.text()});
+  }
+
+  chooseFile(event){
+    this.drlFileName = event.target.value;
+    this.getSadrzajPravila(this.drlFileName);
   }
 
 }

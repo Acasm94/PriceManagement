@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Cenovnik } from '../shared/Cenovnik';
 import { StavkaCenovnika } from '../shared/Stavka-cenovnika';
 import { PredefinisanaVrednost } from '../shared/Predefinisana-vrednost';
@@ -68,6 +68,25 @@ export class CenovnikService {
   private handleError(error: any): Promise<any>{
     console.error("An error occured: ", error);
     return Promise.reject(error.message || error);
+  }
+
+  getFajlove(): Promise<string[]>{
+    return this.http.get("/api/jboosdrools/getFajlove")
+      .toPromise()
+      .then(response => response.json() as string[])
+      .catch(this.handleError);
+  }
+
+  getSadrzajPravila(imeFajla: string): Promise<Response>{
+    return this.http.get("/api/jboosdrools/getSadrzajPravila/" + imeFajla)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  sacuvajIzmenjenoPravilo(pravila: string, drlFileName: string){
+    return this.http.post('/api/jboosdrools/sacuvajPravilo/' + drlFileName, pravila)
+      .toPromise()
+      .catch(this.handleError);
   }
 
 }
