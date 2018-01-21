@@ -33,7 +33,7 @@ public class PredefinisanaVrednostController {
 	@SuppressWarnings("unchecked")
 	@GetMapping
 	@ResponseBody
-	//@Permission(permissionName = "readPredefinisaneVrednosti")
+	@Permission(permissionName = "readPredefinisaneVrednosti")
 	public List<PredefinisanaVrednost> getPredefinisaneVrednosti() {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri() + "/predefinisaneVrednosti/zaOsiguravajucuKucu/" + osiguravajucaKucaId, List.class);
 	}
@@ -41,7 +41,7 @@ public class PredefinisanaVrednostController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaTipAtributa/{tipAtributaId}")
 	@ResponseBody
-	//@Permission(permissionName = "readPredefinisaneVrednostiZaTipAtributa")
+	@Permission(permissionName = "readPredefinisaneVrednostiZaTipAtributa")
 	public ResponseEntity<List<PredefinisanaVrednost>> getPredefinisaneVrednostiZaTipAtributa(@PathVariable("tipAtributaId")Long tipAtributaId) {
 		List<PredefinisanaVrednost> predefinisaneVrednosti = restTemplate.getForObject(databaseUri.getDatabaseUri()+"/predefinisaneVrednosti/zaTipAtributa/"+tipAtributaId, List.class);
 		return new ResponseEntity<List<PredefinisanaVrednost>>(predefinisaneVrednosti, HttpStatus.OK);
