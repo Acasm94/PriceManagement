@@ -12,11 +12,17 @@ import com.sep.pricemanagement.interceptor.PermissionInterceptor;
 @Component
 @ComponentScan(basePackages = "com")
 public class WebApplicationConfig extends WebMvcConfigurerAdapter {
-
-	@Bean
-	public PermissionInterceptor interceptor() {
-		return new PermissionInterceptor();
+	/*
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		argumentResolvers.add(createUserDetailsResolver());
 	}
+	
+	@Bean
+	public UserDetailsArgumentResolver createUserDetailsResolver(){
+		return new UserDetailsArgumentResolver();
+	}
+	*/
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -24,9 +30,15 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter {
 				.addPathPatterns("/**");
 	}
 
+	@Bean
+	public PermissionInterceptor interceptor() {
+		return new PermissionInterceptor();
+	}
+/*
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/webjars/**")
 				.addResourceLocations("/webjars/");
 	}
+*/
 }

@@ -30,14 +30,6 @@
     		<artifactId>ant</artifactId>
     		<version>1.10.1</version>
 		</dependency> 
-	
-	
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter</artifactId> 
-			</dependency> -->
-		 <dependency>
-			<groupId>org.keycloak</groupId>
-			<artifactId>keycloak-spring-boot-starter</artifactId>
-		</dependency> 
 		
 		<dependency>
 			<groupId>org.kie</groupId>
@@ -49,14 +41,14 @@
             <artifactId>kie-spring</artifactId>
             <version>${kie.version}</version>
         </dependency>
-    	
+ <!-- 
 		<dependency>
 	  		<groupId>com.sep</groupId>
 	  		<artifactId>PriceManagementJBD</artifactId>
 	  		<type>jar</type>
 	  		<version>0.0.1-SNAPSHOT</version>
   		</dependency>
-  		
+ -->
   		<dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>

@@ -13,7 +13,7 @@ public class PriceManagementServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PriceManagementServiceApplication.class, args);
 	}
-	
+	/*
 	@Bean
     public KieContainer kieContainer() {
 		KieServices ks = KieServices.Factory.get();
@@ -22,4 +22,5 @@ public class PriceManagementServiceApplication {
 		kScanner.start(10000);
 		return kContainer;
     }
+    */
 }

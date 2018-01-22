@@ -24,7 +24,7 @@ import com.sep.pricemanagement.model.VrednostAtributaOsiguranja;
 @Service
 public class JBossDroolsService {
 
-	private final KieContainer kieContainer;
+	//private final KieContainer kieContainer;
 	
 	@Value("${spring.data.company}")
 	private String osiguravajucaKucaId;
@@ -37,15 +37,15 @@ public class JBossDroolsService {
 	
 	@Autowired
 	private RestTemplate restTemplate;
-
+/*
 	@Autowired
 	public JBossDroolsService(KieContainer kieContainer) {
 		this.kieContainer = kieContainer;
 	}
-	
+*/	
 	public double calculatePrice(List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) 
 	{
-		KieSession kieSession = kieContainer.newKieSession();
+		//KieSession kieSession = kieContainer.newKieSession();
 		
 		ukupnaCena = 0;
 		stavkeCenovnikaArr = null;
@@ -91,9 +91,9 @@ public class JBossDroolsService {
 		
 		KalkulatorCene kalkulatorCene = new KalkulatorCene(vrednostiAtributaOsiguranja, ukupnaCena);
 				
-		kieSession.insert(kalkulatorCene);
-		kieSession.fireAllRules();
-		kieSession.dispose();
+		//kieSession.insert(kalkulatorCene);
+		//kieSession.fireAllRules();
+		//kieSession.dispose();
 		
 		System.out.println(kalkulatorCene.getCena());
 		

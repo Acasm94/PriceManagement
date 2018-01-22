@@ -29,7 +29,7 @@ public class TipOsiguranjaController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaOsiguravajucuKucu/{id}")
 	@ResponseBody
-	@Permission(permissionName = "readTipoveOsiguranjaZaOK")
+	//@Permission(permissionName = "readTipoveOsiguranjaZaOK")
 	public List<TipOsiguranja> getTipoviOsiguranjaZaOsiguravajucuKucu(@PathVariable("id")Long osiguravajucaKucaId) {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/tipoviOsiguranja/zaOsiguravajucuKucu/"+osiguravajucaKucaId, List.class);
 	}
