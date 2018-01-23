@@ -168,5 +168,4 @@ export class CenovnikComponent implements OnInit {
     this.drlFileName = event.target.value;
     this.getSadrzajPravila(this.drlFileName);
   }
-
 }

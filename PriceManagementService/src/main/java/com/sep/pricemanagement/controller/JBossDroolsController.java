@@ -1,6 +1,5 @@
 package com.sep.pricemanagement.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sep.pricemanagement.model.VrednostAtributaOsiguranja;
+import com.sep.pricemanagement.model.user.Permission;
 import com.sep.pricemanagement.services.JBossDroolsService;
 
 @RestController
@@ -58,13 +58,15 @@ public class JBossDroolsController {
 	}*/
 	
 	@RequestMapping(value = "/izracunajCenu", method = RequestMethod.GET, produces = "application/json")
+	@Permission(permissionName = "createOsiguranje")
 	public Double createOsiguranje(@RequestBody List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) {
-		
+
 		return jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);	
 	}
 	
 	@GetMapping("/kreirajPravilo")
 	@ResponseBody
+	@Permission(permissionName = "setAktuelanCenovnikZaOsiguravajucuKucu")
 	public void setAktuelanCenovnikZaOsiguravajucuKucu(@RequestBody String pravilnik) {
 		
 		jBossDroolsService.kreirajNovoPravilo(pravilnik);	
@@ -72,6 +74,7 @@ public class JBossDroolsController {
 	
 	@GetMapping("/getFajlove")
 	@ResponseBody
+	@Permission(permissionName = "getFajlove")
 	public List<String> getFajlove() {
 		
 		return jBossDroolsService.getListuFajlova();
@@ -79,6 +82,7 @@ public class JBossDroolsController {
 
 	@GetMapping("/getSadrzajPravila/{nazivFajla}")
 	@ResponseBody
+	@Permission(permissionName = "getSadrzajPravila")
 	public String getSadrzajPravila(@PathVariable("nazivFajla") String nazivFajla) {
 		
 		return jBossDroolsService.getSadrzajPravila(nazivFajla);
@@ -86,6 +90,7 @@ public class JBossDroolsController {
 	
 	@PostMapping("/sacuvajPravilo/{imeFajla}")
 	@ResponseBody
+	@Permission(permissionName = "sacuvajPravilo")
 	public void sacuvajPravilo(@PathVariable("imeFajla") String imeFajla, @RequestBody String sadrzajPravilnika) {
 
 		jBossDroolsService.sacuvajPravilo(sadrzajPravilnika, imeFajla);

@@ -1,27 +1,32 @@
 package com.sep.pricemanagement.interceptor;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.keycloak.representations.AccessToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.sep.pricemanagement.config.Temp;
 import com.sep.pricemanagement.model.user.Permission;
+import com.sep.pricemanagement.services.UserRolesService;
 
 @Component
+@EnableMBeanExport
+@EnableConfigurationProperties
 public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
-	@SuppressWarnings("unchecked")
+	@Autowired
+	private UserRolesService userRolesService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -30,18 +35,12 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 		Method method = (Method) handlerMethod.getMethod();
 		if (method.isAnnotationPresent(Permission.class)) {
 			String permission = method.getAnnotation(Permission.class).permissionName();
-			/*KeycloakPrincipal<RefreshableKeycloakSecurityContext> principal =
-					(KeycloakPrincipal<RefreshableKeycloakSecurityContext>) request.getUserPrincipal();
-			AccessToken token = principal.getKeycloakSecurityContext().getToken();
-			*/
 			
 			KeycloakAuthenticationToken kat = (KeycloakAuthenticationToken) request.getUserPrincipal();
-			//kat.getAccount().getRoles();
-			
 			
 			for(String s : kat.getAccount().getRoles()){
-				if(Temp.permisije(s.replaceFirst("ROLE_", "")).contains(permission)){
-					System.out.println("permisija ==");
+				ArrayList<String> lista = userRolesService.getPrivilegesForRole(s.replaceFirst("ROLE_", ""));
+				if(lista.contains(permission)){
 					return true;
 				}
 			}
