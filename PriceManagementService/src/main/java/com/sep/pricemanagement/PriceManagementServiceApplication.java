@@ -16,14 +16,16 @@ import com.sep.pricemanagement.services.NotificationService;
 
 @SpringBootApplication
 public class PriceManagementServiceApplication {
-	
+	/*
 	@Autowired
 	NotificationService notificationService;
+	*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PriceManagementServiceApplication.class, args);
 	}
 	
+	/*
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
@@ -46,7 +48,7 @@ public class PriceManagementServiceApplication {
 	        };
 	        
     }
-	
+	*/
 	
 	/*
 	@Bean
