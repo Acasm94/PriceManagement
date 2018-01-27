@@ -42,7 +42,7 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 		keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
 		auth.authenticationProvider(keycloakAuthenticationProvider);
 	}
-
+	
 	@Bean
 	public org.keycloak.adapters.KeycloakConfigResolver KeycloakConfigResolver() {
 		return new KeycloakSpringBootConfigResolver();
@@ -53,15 +53,18 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 	protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
 		return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		super.configure(http);
+		
 		http
-			.authorizeRequests().antMatchers("/*", "/api/*").authenticated().anyRequest().permitAll()
-			.and().httpBasic().and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class).csrf().csrfTokenRepository(csrfTokenRepository());
+			.authorizeRequests()
+			.antMatchers("/apii/jboosdrools/secured/", "/api/").authenticated()
+			.anyRequest().permitAll().and().httpBasic().and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+			.csrf().csrfTokenRepository(csrfTokenRepository());
 	}
-
+	
 	@Bean
 	@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public AccessToken accessToken() {

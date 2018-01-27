@@ -17,7 +17,7 @@ import com.sep.pricemanagement.model.user.Permission;
 import com.sep.pricemanagement.services.JBossDroolsService;
 
 @RestController
-@RequestMapping("/api/jboosdrools")
+@RequestMapping("/apii/jboosdrools")
 public class JBossDroolsController {
 	
 	private final JBossDroolsService jBossDroolsService;
@@ -58,41 +58,36 @@ public class JBossDroolsController {
 	}*/
 	
 	@RequestMapping(value = "/izracunajCenu", method = RequestMethod.GET, produces = "application/json")
-	@Permission(permissionName = "createOsiguranje")
+	//@Permission(permissionName = "createOsiguranje")
 	public Double createOsiguranje(@RequestBody List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) {
-
 		return jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);	
 	}
 	
-	@GetMapping("/kreirajPravilo")
+	@GetMapping("/secured/kreirajPravilo")
 	@ResponseBody
 	@Permission(permissionName = "setAktuelanCenovnikZaOsiguravajucuKucu")
 	public void setAktuelanCenovnikZaOsiguravajucuKucu(@RequestBody String pravilnik) {
-		
 		jBossDroolsService.kreirajNovoPravilo(pravilnik);	
 	}
 	
-	@GetMapping("/getFajlove")
+	@GetMapping("/secured/getFajlove")
 	@ResponseBody
 	@Permission(permissionName = "getFajlove")
 	public List<String> getFajlove() {
-		
 		return jBossDroolsService.getListuFajlova();
 	}
 
-	@GetMapping("/getSadrzajPravila/{nazivFajla}")
+	@GetMapping("/secured/getSadrzajPravila/{nazivFajla}")
 	@ResponseBody
 	@Permission(permissionName = "getSadrzajPravila")
-	public String getSadrzajPravila(@PathVariable("nazivFajla") String nazivFajla) {
-		
+	public String getSadrzajPravila(@PathVariable("nazivFajla") String nazivFajla) {	
 		return jBossDroolsService.getSadrzajPravila(nazivFajla);
 	}
 	
-	@PostMapping("/sacuvajPravilo/{imeFajla}")
+	@PostMapping("/secured/sacuvajPravilo/{imeFajla}")
 	@ResponseBody
 	@Permission(permissionName = "sacuvajPravilo")
 	public void sacuvajPravilo(@PathVariable("imeFajla") String imeFajla, @RequestBody String sadrzajPravilnika) {
-
 		jBossDroolsService.sacuvajPravilo(sadrzajPravilnika, imeFajla);
 	}
 

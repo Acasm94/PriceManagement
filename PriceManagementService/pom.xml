@@ -42,29 +42,36 @@
 		</dependency> 
 		
 		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-api</artifactId>
+    		<version>1.7.25</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-ci</artifactId>
 			<version>${kie.version}</version>
 		</dependency>
+		
 		<dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-spring</artifactId>
             <version>${kie.version}</version>
         </dependency>
- <!-- 
+  
 		<dependency>
 	  		<groupId>com.sep</groupId>
 	  		<artifactId>PriceManagementJBD</artifactId>
 	  		<type>jar</type>
 	  		<version>0.0.1-SNAPSHOT</version>
   		</dependency>
- -->
+ 
   		<dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
             <scope>test</scope>
         </dependency>
-		 
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -94,14 +101,12 @@
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-spring-boot-starter</artifactId>
 		</dependency>
-		
-		
+				
 		<dependency>
 		    <groupId>org.keycloak</groupId>
 		    <artifactId>keycloak-spring-security-adapter</artifactId>
-		</dependency>
-		
-		   
+		</dependency> 
+			   
 	<dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-embedder</artifactId>
@@ -119,7 +124,7 @@
     </dependency>
 		
 	</dependencies>
-
+ 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -130,7 +135,7 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+	</dependencyManagement> 
 
 	<build>
 		<plugins>
