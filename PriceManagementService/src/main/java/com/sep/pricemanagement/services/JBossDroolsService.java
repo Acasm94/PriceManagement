@@ -89,10 +89,10 @@ public class JBossDroolsService {
 		
 		if(vrednostiAtributaOsiguranja.stream().anyMatch(vr -> vr.getVrednost().equals("Broj osoba")))
 		{
-			VrednostAtributaOsiguranja vrAtr = vrednostiAtributaOsiguranja.stream().filter(vr -> vr.getTipAtributa().getVrednostiAtributa().equals("Broj osoba")).findFirst().orElse(null);
-			ukupnaCena *= vrAtr != null ? Integer.parseInt(vrAtr.getVrednost()) : 1;
+			//VrednostAtributaOsiguranja vrAtr = vrednostiAtributaOsiguranja.stream().filter(vr -> vr.getTipAtributa().getVrednostiAtributa().equals("Broj osoba")).findFirst().orElse(null);
+			//ukupnaCena *= vrAtr != null ? Integer.parseInt(vrAtr.getVrednost()) : 1;
 			
-			//ukupnaCena *= vrednostiAtributaOsiguranja != null ? 3 : 1;
+			ukupnaCena *= vrednostiAtributaOsiguranja != null ? 3 : 1;
 		}
 		
 		System.out.println(ukupnaCena);	
