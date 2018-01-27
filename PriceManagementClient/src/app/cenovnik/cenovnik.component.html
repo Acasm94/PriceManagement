@@ -11,7 +11,7 @@
       <td>{{stavkaCenovnika.suma}}</td>
     </tr>
   </table>
-  <button type = "button" class = "btn btn-primary" (click) = "openCreateCenovnik(modal)">Novi cenovnik</button>
+  <button id = "noviCenovnikIdForTest" type = "button" class = "btn btn-primary" (click) = "openCreateCenovnik(modal)">Novi cenovnik</button>
   <button type = "button" class = "btn btn-primary" (click) = "openUpdateCenovnik(modal)">Izmeni cenovnik</button>
   <button type = "button" class = "btn btn-success" (click) = "aktuelan()">Postavi za aktuelan</button>
   <button type = "button" class = "btn btn-primary" (click) = "prikaziSveCenovnike(cenovnici)">Lista cenovnika</button>
@@ -49,8 +49,8 @@
     </div>
   <div class="modal-footer">
     <button type = "button" class = "btn btn-default" (click) = "modalRef.hide()">Close</button>
-    <button *ngIf = "action ==='ADD'" class = "btn btn-success" (click) = "createCenovnik()">Kreiraj</button>
-    <button *ngIf = "action ==='UPDATE'" class = "btn btn-success" (click) = "updateCenovnik()">Izmeni</button>
+    <button id = "kreirajCenovnikIdForTest" *ngIf = "action ==='ADD'" class = "btn btn-success" (click) = "createCenovnik()">Kreiraj</button>
+    <button id = "izmeniCenovnikIdForTest" *ngIf = "action ==='UPDATE'" class = "btn btn-success" (click) = "updateCenovnik()">Izmeni</button>
   </div>
 </ng-template>
 
