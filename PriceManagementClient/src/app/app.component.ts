@@ -28,7 +28,11 @@ export class AppComponent {
     }
     
     public logout() {
-        this.keycloakService.logout();
+		this.keycloakService.logout();
     }
+	
+	public getUsername(): string {
+		return this.keycloakService.getUser().username;
+	}
 
 }
