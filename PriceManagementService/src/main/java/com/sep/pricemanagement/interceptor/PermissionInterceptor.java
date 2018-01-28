@@ -47,7 +47,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 
-			log.error("ACCES DENIED FOR USER: [{}], METHOD TYPE: [{}] ON PATH: [{}], REASON: [UNAUTHORIZED REQUES].",kat.getAccount().getPrincipal().getName(), request.getMethod(), request.getRequestURI());
+			log.error("ACCES DENIED FOR USER: [{}], METHOD TYPE: [{}] ON PATH: [{}], REASON: [UNAUTHORIZED REQUEST].",kat.getAccount().getPrincipal().getName(), request.getMethod(), request.getRequestURI());
 			response.sendError(401, "Unauthorized request");
 			return true;
 		}
