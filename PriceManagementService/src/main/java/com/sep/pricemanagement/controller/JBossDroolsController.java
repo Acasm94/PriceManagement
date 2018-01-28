@@ -27,64 +27,34 @@ public class JBossDroolsController {
         this.jBossDroolsService = jBossDroolsService;
     }
 	
-	/*@PostMapping("/izracunajCenu")
-	@ResponseBody
-	public Double createOsiguranje(@RequestBody List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) {
-		
-		jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);
-		
-		List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja = new ArrayList<VrednostAtributaOsiguranja>();
-		VrednostAtributaOsiguranja vra1 = new VrednostAtributaOsiguranja();
-		vra1.setVrednost("Preko 60 godina");
-		VrednostAtributaOsiguranja vra2 = new VrednostAtributaOsiguranja();
-		vra2.setVrednost("Australija");
-		VrednostAtributaOsiguranja vra4 = new VrednostAtributaOsiguranja();
-		vra4.setVrednost("30.000 EUR");
-		VrednostAtributaOsiguranja vra3 = new VrednostAtributaOsiguranja();
-		VrednostAtributaOsiguranja vao = new VrednostAtributaOsiguranja();
-		vao.setVrednost("3");
-		TipAtributa tp = new TipAtributa();
-		List<VrednostAtributaOsiguranja> liVAO = new ArrayList<VrednostAtributaOsiguranja>();
-		liVAO.add(vao);
-		tp.setVrednostiAtributa(liVAO);
-		vra3.setTipAtributa(tp);
-		vra3.setVrednost("Broj osoba");
-		vrednostiAtributaOsiguranja.add(vra1);
-		vrednostiAtributaOsiguranja.add(vra2);
-		vrednostiAtributaOsiguranja.add(vra3);
-		vrednostiAtributaOsiguranja.add(vra4);
-		
-		return null;		
-	}*/
-	
 	@RequestMapping(value = "/izracunajCenu", method = RequestMethod.POST, produces = "application/json")
 	//@Permission(permissionName = "createOsiguranje")
 	public Double createOsiguranje(@RequestBody List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) {
 		return jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);	
 	}
 	
-	@GetMapping("/secured/kreirajPravilo")
+	@GetMapping("/api/kreirajPravilo")
 	@ResponseBody
 	@Permission(permissionName = "setAktuelanCenovnikZaOsiguravajucuKucu")
 	public void setAktuelanCenovnikZaOsiguravajucuKucu(@RequestBody String pravilnik) {
 		jBossDroolsService.kreirajNovoPravilo(pravilnik);	
 	}
 	
-	@GetMapping("/secured/getFajlove")
+	@GetMapping("/api/getFajlove")
 	@ResponseBody
 	@Permission(permissionName = "getFajlove")
 	public List<String> getFajlove() {
 		return jBossDroolsService.getListuFajlova();
 	}
 
-	@GetMapping("/secured/getSadrzajPravila/{nazivFajla}")
+	@GetMapping("/api/getSadrzajPravila/{nazivFajla}")
 	@ResponseBody
 	@Permission(permissionName = "getSadrzajPravila")
 	public String getSadrzajPravila(@PathVariable("nazivFajla") String nazivFajla) {	
 		return jBossDroolsService.getSadrzajPravila(nazivFajla);
 	}
 	
-	@PostMapping("/secured/sacuvajPravilo/{imeFajla}")
+	@PostMapping("/api/sacuvajPravilo/{imeFajla}")
 	@ResponseBody
 	@Permission(permissionName = "sacuvajPravilo")
 	public void sacuvajPravilo(@PathVariable("imeFajla") String imeFajla, @RequestBody String sadrzajPravilnika) {

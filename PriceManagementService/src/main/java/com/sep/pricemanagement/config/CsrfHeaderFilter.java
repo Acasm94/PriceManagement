@@ -19,8 +19,7 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		
 		String path = request.getServletPath();
-		
-		if(!path.startsWith("/api/") && !path.contains("/secured/")){
+		if(!path.contains("/api/")){
 			return;
 		}
 		

@@ -1,18 +1,7 @@
 package com.sep.pricemanagement;
 
-import java.util.Arrays;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-
-import com.sep.pricemanagement.model.notification.Osiguranje;
-import com.sep.pricemanagement.model.notification.StatusUplate;
-import com.sep.pricemanagement.model.notification.Uplata;
-import com.sep.pricemanagement.services.NotificationService;
 
 @SpringBootApplication
 public class PriceManagementServiceApplication {

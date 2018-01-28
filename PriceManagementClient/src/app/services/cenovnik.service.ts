@@ -71,20 +71,20 @@ export class CenovnikService {
   }
 
   getFajlove(): Promise<string[]>{
-    return this.http.get("/apii/jboosdrools/secured/getFajlove")
+    return this.http.get("/apii/jboosdrools/api/getFajlove")
       .toPromise()
       .then(response => response.json() as string[])
       .catch(this.handleError);
   }
 
   getSadrzajPravila(imeFajla: string): Promise<Response>{
-    return this.http.get("/apii/jboosdrools/secured/getSadrzajPravila/" + imeFajla)
+    return this.http.get("/apii/jboosdrools/api/getSadrzajPravila/" + imeFajla)
       .toPromise()
       .catch(this.handleError);
   }
 
   sacuvajIzmenjenoPravilo(pravila: string, drlFileName: string){
-    return this.http.post('/apii/jboosdrools/secured/sacuvajPravilo/' + drlFileName, pravila)
+    return this.http.post('/apii/jboosdrools/api/sacuvajPravilo/' + drlFileName, pravila)
       .toPromise()
       .catch(this.handleError);
   }
