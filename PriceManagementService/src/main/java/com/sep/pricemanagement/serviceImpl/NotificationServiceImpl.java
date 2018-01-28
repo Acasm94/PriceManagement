@@ -81,7 +81,13 @@ public class NotificationServiceImpl implements NotificationService{
 			File izvestaj = createIzvestaj(klijent, uplata);
 			try {
 				zaposleniEmail = restTemplate.getForObject(authorizationProviderUri.getAuthorizationProviderUri() + "/users/getContactInfoForNotification?" + grupe, List.class);
-				zaposleniEmail.forEach(email -> sendEmail(notificationMailConfig.getLocalJavaMailSender(), izvestaj, htmlInfo, email));
+				zaposleniEmail.forEach(email -> {
+					try {
+						sendEmail(notificationMailConfig.getLocalJavaMailSender(), izvestaj, htmlInfo, email);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					});
 				sendEmail(notificationMailConfig.getGoogleJavaMailSender(), izvestaj, htmlInfo, klijent.getEmail());
 			} catch(Exception mailexception) {
 				sendEmail(notificationMailConfig.getGoogleJavaMailSender(), izvestaj, htmlInfo, klijent.getEmail());
