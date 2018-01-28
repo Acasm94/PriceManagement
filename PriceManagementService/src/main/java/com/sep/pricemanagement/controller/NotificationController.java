@@ -22,7 +22,7 @@ public class NotificationController {
 	
 	
 	@PostMapping("/notifyParties")
-	public boolean notifyParties(@RequestBody Uplata uplata) {
+	public Boolean notifyParties(@RequestBody Uplata uplata) {
 		notificatioNService.notifyParties(uplata);		
 		return false;
 	}

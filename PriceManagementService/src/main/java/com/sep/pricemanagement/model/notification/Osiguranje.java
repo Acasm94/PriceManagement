@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Osiguranje implements Serializable{
 	
-	private static final long serialVersionUID = -7663607432545399871L;
 	private Long id;
 	private Date datumSklapanja;
 	private double iznos;

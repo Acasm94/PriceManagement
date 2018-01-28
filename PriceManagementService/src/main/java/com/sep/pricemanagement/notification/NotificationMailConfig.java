@@ -38,7 +38,7 @@ public class NotificationMailConfig {
 	    mailSenderImpl.setHost("localhost");
 	    mailSenderImpl.setPort(25);
 	    
-	    mailSenderImpl.setUsername("insurancesep@uniqa.com");
+	    mailSenderImpl.setUsername("insurancesep@uniqu.com");
 	    mailSenderImpl.setPassword("geN1S9!8la");
 	     
 	    Properties props = mailSenderImpl.getJavaMailProperties();
