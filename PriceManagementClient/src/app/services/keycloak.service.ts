@@ -96,4 +96,6 @@ export class KeycloakService {
     getUser(): User {
         return KeycloakService.user;
     }
+	
+	
 }
