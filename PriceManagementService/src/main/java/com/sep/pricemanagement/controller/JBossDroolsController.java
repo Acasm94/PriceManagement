@@ -57,7 +57,7 @@ public class JBossDroolsController {
 		return null;		
 	}*/
 	
-	@RequestMapping(value = "/izracunajCenu", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/izracunajCenu", method = RequestMethod.POST, produces = "application/json")
 	//@Permission(permissionName = "createOsiguranje")
 	public Double createOsiguranje(@RequestBody List<VrednostAtributaOsiguranja> vrednostiAtributaOsiguranja) {
 		return jBossDroolsService.calculatePrice(vrednostiAtributaOsiguranja);	
