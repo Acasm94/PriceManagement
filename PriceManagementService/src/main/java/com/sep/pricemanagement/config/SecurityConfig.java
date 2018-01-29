@@ -60,7 +60,7 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()
-			.antMatchers("/apii/jboosdrools/api/secured/**", "/api/**").authenticated()
+			.antMatchers("/apii/jboosdrools/api/**", "/api/**").authenticated()
 			.anyRequest().permitAll().and().httpBasic().and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 			.antMatcher("/**/api/**").csrf().csrfTokenRepository(csrfTokenRepository());
 	}

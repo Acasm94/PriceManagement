@@ -35,7 +35,6 @@ public class CenovnikController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaOsiguravajucuKucu")
 	@ResponseBody
-	//@PreAuthorize("hasAnyRole('fa','user')")
 	@Permission(permissionName = "readCenovniciZaOK")
 	public List<Cenovnik> getCenovniciZaOsiguravajucuKucu() {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/cenovnici/zaOsiguravajucuKucu/" + osiguravajucaKucaId, List.class);
@@ -44,7 +43,6 @@ public class CenovnikController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/zaOsiguravajucuKucuPoDatumu")
 	@ResponseBody
-	//@PreAuthorize("hasAnyRole('fa','user')")
 	@Permission(permissionName = "readCenovniciZaOKPoDatumu")
 	public List<Cenovnik> getCenovniciZaOsiguravajucuKucuAndDate() {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/cenovnici/zaOsiguravajucuKucuPoDatumu/" + osiguravajucaKucaId, List.class);
@@ -52,7 +50,6 @@ public class CenovnikController {
 	
 	@GetMapping
 	@ResponseBody
-	//@PreAuthorize("hasAnyRole('fa','user')")
 	@Permission(permissionName = "getAktuelanCenovniciZaOK")
 	public Cenovnik getAktuelanCenovnikZaOsiguravajucuKucu() {
 		return restTemplate.getForObject(databaseUri.getDatabaseUri()+"/cenovnici/aktuelan/zaOsiguravajucuKucu/" + osiguravajucaKucaId, Cenovnik.class);
@@ -60,27 +57,21 @@ public class CenovnikController {
 	
 	@PostMapping("/aktuelan")
 	@ResponseBody
-	//@PreAuthorize("hasAnyRole('fa','user')")
 	@Permission(permissionName = "setAktuelanCenovniciZaOK")
-	//@Permission(permissionName = "c")
 	public Cenovnik setAktuelanCenovnikZaOsiguravajucuKucu(@RequestBody Cenovnik cenovnik) {
 		return restTemplate.postForObject(databaseUri.getDatabaseUri()+"/cenovnici/aktuelan", cenovnik, Cenovnik.class);
 	}
 	
 	@PostMapping
 	@ResponseBody
-	//@PreAuthorize("hasAnyRole('fa','prodavac')")
 	@Permission(permissionName = "createCenovnik")
-	//@Permission(permissionName = "a")
 	public Cenovnik createCenovnik(@RequestBody Cenovnik cenovnik) {
 		return restTemplate.postForObject(databaseUri.getDatabaseUri() + "/cenovnici/" + osiguravajucaKucaId, cenovnik, Cenovnik.class);
 	}
 	
 	@PutMapping
 	@ResponseBody
-	//@PreAuthorize("hasAnyRole('fa','prodavac')")
 	@Permission(permissionName = "updateCenovnik")
-	//@Permission(permissionName = "b")
 	public Cenovnik updateCenovnik(@RequestBody Cenovnik cenovnik) {
 		return restTemplate.postForObject(databaseUri.getDatabaseUri() + "/cenovnici/" + osiguravajucaKucaId, cenovnik, Cenovnik.class);
 	}

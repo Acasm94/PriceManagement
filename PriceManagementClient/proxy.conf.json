@@ -1,10 +1,6 @@
 {
     "/api/*": {
-        "target": "https://localhost:8085",
-        "secure": false
-    },
-    "/apii/*": {
-        "target": "https://localhost:8085",
+        "target": "http://localhost:8085",
         "secure": false
     }
 }
