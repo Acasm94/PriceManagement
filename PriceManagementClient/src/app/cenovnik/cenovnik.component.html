@@ -1,5 +1,15 @@
 <div class = "container">
   <br/>
+  <br/>
+	<button id = "noviCenovnikIdForTest" type = "button" class = "btn btn-primary" (click) = "openCreateCenovnik(modal)">Novi cenovnik</button>
+  <button id = "openCenovnikIdForTest" type = "button" class = "btn btn-primary" (click) = "openUpdateCenovnik(modal)">Izmeni cenovnik</button>
+  <button id = "postaviCenovnikZaAktuelanIdForTest"type = "button" class = "btn btn-success" (click) = "aktuelan()">Postavi za aktuelan</button>
+  <button id = "prikaziSveCenovnikeIdForTest" type = "button" class = "btn btn-primary" (click) = "prikaziSveCenovnike(cenovnici)">Lista cenovnika</button>
+  <button id = "prikaziCenovnikePoDatumuIdForTest" type = "button" class = "btn btn-primary" (click) = "prikaziCenovnikePoDatumu(cenovnici)">Cenovnici za danasnji datum</button>
+  <button *ngIf="isManager() === true" id = "postaviNovoPraviloIdForTest" type = "button" class = "btn btn-primary" (click) = "novaPravila(editor)">Napisi nova pravila</button>
+  <button *ngIf="isManager() == true" id = "izmeniPostojecaPravilaIdForTest" type = "button" class = "btn btn-primary" (click) = "izmeniPostojecaPravila(editor)">Izmeni postojeca pravila</button>
+
+  <br/>
   <p class = "h2">Cenovnik za period od {{aktuelniCenovnik?.datumOd}} do {{aktuelniCenovnik?.datumDo}}</p>
   <br/>
   <table class = "table">
@@ -11,14 +21,7 @@
       <td>{{stavkaCenovnika.suma}}</td>
     </tr>
   </table>
-  <button id = "noviCenovnikIdForTest" type = "button" class = "btn btn-primary" (click) = "openCreateCenovnik(modal)">Novi cenovnik</button>
-  <button type = "button" class = "btn btn-primary" (click) = "openUpdateCenovnik(modal)">Izmeni cenovnik</button>
-  <button type = "button" class = "btn btn-success" (click) = "aktuelan()">Postavi za aktuelan</button>
-  <button type = "button" class = "btn btn-primary" (click) = "prikaziSveCenovnike(cenovnici)">Lista cenovnika</button>
-  <button type = "button" class = "btn btn-primary" (click) = "prikaziCenovnikePoDatumu(cenovnici)">Cenovnici za danasnji datum</button>
-  <button type = "button" class = "btn btn-primary" (click) = "novaPravila(editor)">Napisi nova pravila</button>
-  <button type = "button" class = "btn btn-primary" (click) = "izmeniPostojecaPravila(editor)">Izmeni postojeca pravila</button>
-</div>
+  </div>
 
 <!-- Modal -->
 <ng-template #modal>
@@ -97,14 +100,14 @@
     </div>
     <div class="modal-footer">
       <button type = "button" class = "btn btn-default" (click) = "modalRef.hide()">Close</button>
-      <button type = "button" class = "btn btn-success text-right" (click) = "sacuvajPravila()" >Sacuvaj</button>
+      <button id = "sacuvajPravilaIdForTest" type = "button" class = "btn btn-success text-right" (click) = "sacuvajPravila()" >Sacuvaj</button>
     </div>
 </ng-template>
 
 <div class="navbar navbar-default navbar-fixed-bottom">
 	<div class = "container">
 		<div class = "navbar-text navbar-pull-left">
-			<p>Copyright OneZeroBeatz, January 2018.</p>
+			<p>Copyright Team2, January 2018.</p>
 		</div>
 	</div>
 </div>

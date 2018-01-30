@@ -20,6 +20,7 @@ export class AppComponent {
     }
 
     public isManager(): boolean {
+		
         return this.keycloakService.hasAnyRole(['manager']);
     }
 

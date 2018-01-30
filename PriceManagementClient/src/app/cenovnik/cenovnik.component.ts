@@ -6,6 +6,7 @@ import { TemplateRef } from '@angular/core/src/linker/template_ref';
 import { PredefinisanaVrednost } from '../shared/Predefinisana-vrednost';
 import { StavkaCenovnika } from '../shared/Stavka-cenovnika';
 import { DatePipe } from '@angular/common';
+import { KeycloakService } from '../services/keycloak.service';
 
 @Component({
   selector: 'app-cenovnik',
@@ -13,7 +14,6 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./cenovnik.component.css']
 })
 export class CenovnikComponent implements OnInit {
-
   action: String;
   modalRef: BsModalRef;
   aktuelniCenovnik: Cenovnik;
@@ -25,9 +25,9 @@ export class CenovnikComponent implements OnInit {
   files: string[];
   jBossStatus: string;
   drlFileName: string;
-
-
-  constructor(private cenovnikService: CenovnikService, private modalService: BsModalService) { 
+  
+  
+  constructor(private keycloakService: KeycloakService, private cenovnikService: CenovnikService, private modalService: BsModalService) { 
     this.noviCenovnik = new Cenovnik();
     this.stavkeCenovnika = new Map();
   }
@@ -37,8 +37,9 @@ export class CenovnikComponent implements OnInit {
       .then(cenovnik => this.getStavkeCenovnikaZaCenovnik(cenovnik));
     this.cenovnikService.getPredefinisaneVrednosti()
       .then(predefinisaneVrednosti => this.predefinisaneVrednosti = predefinisaneVrednosti);
-    this.cenovnikService.getFajlove()
-      .then(files => {this.files = files;});
+	   this.cenovnikService.getFajlove()
+      .then(files => {this.files = files;}
+	);
   }
 
   getStavkeCenovnikaZaCenovnik(cenovnik: Cenovnik){
@@ -48,6 +49,11 @@ export class CenovnikComponent implements OnInit {
     this.cenovnikService.getStavkeCenovnikaZaCenovnik(cenovnik.id)
       .then(stavkeCenovnika => this.aktuelniCenovnik.stavkeCenovnika = stavkeCenovnika);
   }
+  
+  
+    public isManager(): boolean {
+		return this.keycloakService.hasRole('FinansijskiAnaliticar');
+    }
 
   public openCreateCenovnik(template: TemplateRef<any>) {
     this.action = "ADD";
@@ -82,20 +88,25 @@ export class CenovnikComponent implements OnInit {
   }
 
   public novaPravila(template: TemplateRef<any>) {
-    this.pravila = "package drools.rules\n\n" +
-    "import org.kie.api.runtime.KieRuntime;\n" +
-    "import com.sep.pricemanagement.model.*;";
-    this.drlFileName = "";
-    this.jBossStatus = "CREATE";
-    this.modalRef = this.modalService.show(template);
+	  
+		this.pravila = "package drools.rules\n\n" +
+		"import org.kie.api.runtime.KieRuntime;\n" +
+		"import com.sep.pricemanagement.model.*;";
+		this.drlFileName = "";
+		this.jBossStatus = "CREATE";
+	
+		this.modalRef = this.modalService.show(template);
+	
   }
 
   public izmeniPostojecaPravila(template: TemplateRef<any>) {
-    this.jBossStatus = "UPDATE";
-    this.cenovnikService.getFajlove()
-      .then(files => {this.files = files;});
-    this.getSadrzajPravila(this.files[0]);
-    this.drlFileName = this.files[0];
+		this.jBossStatus = "UPDATE";
+	  
+		this.cenovnikService.getFajlove()
+		.then(files => {this.files = files;});
+		this.getSadrzajPravila(this.files[0]);
+		this.drlFileName = this.files[0];
+	
     this.modalRef = this.modalService.show(template);
   }
 
@@ -153,19 +164,21 @@ export class CenovnikComponent implements OnInit {
   }
 
   sacuvajPravila(){
-    this.cenovnikService.sacuvajIzmenjenoPravilo(this.pravila, this.drlFileName);
-    console.log(this.pravila);
-    console.log(this.drlFileName);
-    this.modalRef.hide();
+		this.cenovnikService.sacuvajIzmenjenoPravilo(this.pravila, this.drlFileName);
+		console.log(this.pravila);
+		console.log(this.drlFileName);
+		this.modalRef.hide();
   }
 
   getSadrzajPravila(drlFileName){
-    this.cenovnikService.getSadrzajPravila(drlFileName)
-      .then(pravila => {this.pravila = pravila.text()});
+		this.cenovnikService.getSadrzajPravila(drlFileName)
+		.then(pravila => {this.pravila = pravila.text()});
+	  
   }
 
   chooseFile(event){
-    this.drlFileName = event.target.value;
-    this.getSadrzajPravila(this.drlFileName);
+		this.drlFileName = event.target.value;
+		this.getSadrzajPravila(this.drlFileName);
+	  
   }
 }
